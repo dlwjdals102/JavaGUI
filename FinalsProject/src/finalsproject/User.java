@@ -9,5 +9,51 @@ package finalsproject;
  * @author LeeJeongMin
  */
 public class User {
+    private String id;
+    private String password;
+    private String accountNumber;
+    private String money;
+    
+    public User(String id, String password, String accountNumber, String money){
+        this.id = id;
+        this.password = password;
+        this.accountNumber = accountNumber;
+        this.money = money;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public void setMoney(String currMoney) {
+        this.money = currMoney;
+    }
+    
+    
+    
     
 }
