@@ -25,14 +25,6 @@ public class DBManager {
     Connection DB_con;
     Statement DB_stmt;
     ResultSet DB_rs;
-
-    public Statement getDB_stmt() {
-        return DB_stmt;
-    }
-
-    public ResultSet getDB_rs() {
-        return DB_rs;
-    }
     
     public static DBManager getInstance() {
         if (instance == null) {
@@ -62,27 +54,4 @@ public class DBManager {
         }
     }
     
-    public ResultSet getRs(String query) throws SQLException{
-        DB_rs = DB_stmt.executeQuery(query);
-        
-        return DB_rs;
-    }
-    
-    public User getUserInfo(String id) throws SQLException{
-        String query = "SELECT * FROM your_users_table WHERE id = '" + id + "'";
-        DB_rs = DB_stmt.executeQuery(query);
-        
-        if (DB_rs.next()) {
-            // Extract user information from the result set
-            String userId = DB_rs.getString("id");
-            String userName = DB_rs.getString("name");
-            String userAccountNumber = DB_rs.getString("accountNumber");
-            String userMoney = DB_rs.getString("money");
-
-            // Create and return a User object
-            return new User(userId, userName, userAccountNumber, userMoney);
-        }
-        
-        return null;
-    }
 }

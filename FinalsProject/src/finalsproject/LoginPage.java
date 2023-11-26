@@ -5,11 +5,10 @@
 package finalsproject;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * 로그인 화면
@@ -112,28 +111,27 @@ public class LoginPage extends javax.swing.JPanel {
         String password = txtPassword.getText();
         
         try {
-            DBManager.getInstance().dbOpen("");
-            String query = "SELECT * FROM --- WHERE id = '" + id + "' AND password = '" + password + "'";
-            ResultSet rs = DBManager.getInstance().getDB_stmt().executeQuery(query);
+            DBManager dbManager = DBManager.getInstance();
+            String query = "SELECT * FROM users WHERE id = '" + id + "' AND password = '" + password + "'";
+            dbManager.dbOpen("");
+            dbManager.DB_rs = dbManager.DB_stmt.executeQuery(query);
             
-            if (rs.next()) {
-                String userId = rs.getString("id");
-                User user = DBManager.getInstance().getUserInfo(userId);
-
-                if (user != null) {
-                    System.out.println("로그인 성공!");
-                    DBManager.getInstance().dbClose();
-                    LayoutManager.getInstance().setUser(user);
-                    LayoutManager.getInstance().setLayout("bankMainPage");
-                } else {
-                    System.out.println("사용자 정보를 찾을 수 없습니다.");
-                }
+            // 정보가 있으면, layoutmanager에 있는 user정보 세팅해주고, bankmainpage로 화면전환
+            if (dbManager.DB_rs.next()) {
+                String userID = dbManager.DB_rs.getString("id");
+                String userPW = dbManager.DB_rs.getString("password");
+                String userBankAccount = dbManager.DB_rs.getString("bankaccount");
+                String userMoney = dbManager.DB_rs.getString("money");
+                
+                LayoutManager.getInstance().setUser(new User(userID, userPW, userBankAccount, userMoney));
+                LayoutManager.getInstance().previousLayout(); // 이전 화면(메인화면)으로 이동
             } else {
-                System.out.println("로그인 실패. ID와 비밀번호를 확인하세요.");
+                System.out.println("사용자 정보를 찾을 수 없습니다.");
             }
             
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            dbManager.dbClose();
+        } catch (IOException | SQLException e) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, e);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
