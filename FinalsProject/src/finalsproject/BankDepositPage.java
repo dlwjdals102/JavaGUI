@@ -9,12 +9,12 @@ package finalsproject;
  * @author LeeJeongMin
  */
 public class BankDepositPage extends javax.swing.JPanel {
-
+    DBManager DBM = new DBManager();
     /**
      * Creates new form BankDepositPage
      */
     public BankDepositPage() {
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -26,19 +26,87 @@ public class BankDepositPage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnDeposit = new javax.swing.JButton();
+        lblInputMoney = new javax.swing.JLabel();
+        lblAccount = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        txtAccount = new javax.swing.JTextField();
+        txtInputMoney = new javax.swing.JTextField();
+
+        btnDeposit.setText("입금");
+        btnDeposit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepositActionPerformed(evt);
+            }
+        });
+
+        lblInputMoney.setText("입금할 금액 : ");
+
+        lblAccount.setText("계좌번호 : ");
+
+        lblName.setText("이 름 : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblName)
+                    .addComponent(lblAccount)
+                    .addComponent(lblInputMoney))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnDeposit)
+                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAccount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                    .addComponent(txtInputMoney, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAccount)
+                    .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblInputMoney)
+                    .addComponent(txtInputMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(btnDeposit)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
+        String strSQL = "Update user Set money ";
+        int current_money = Integer.parseInt(LayoutManager.getInstance().getCurrentUser().getMoney());
+        strSQL += "where id = '" + LayoutManager.getInstance().getCurrentUser().getId() + "'";
+        try{
+            DBM.dbOpen();
+            DBM.DB_stmt.executeUpdate(strSQL);
+            DBM.dbClose();
+        }catch(Exception e){
+            System.out.println("SQLException : " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnDepositActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDeposit;
+    private javax.swing.JLabel lblAccount;
+    private javax.swing.JLabel lblInputMoney;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JTextField txtAccount;
+    private javax.swing.JTextField txtInputMoney;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

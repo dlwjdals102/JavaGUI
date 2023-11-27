@@ -52,8 +52,4 @@ public class User {
     public void setMoney(String currMoney) {
         this.money = currMoney;
     }
-    
-    
-    
-    
 }
