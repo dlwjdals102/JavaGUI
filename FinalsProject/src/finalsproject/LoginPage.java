@@ -41,6 +41,7 @@ public class LoginPage extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("아이디 :");
 
@@ -59,6 +60,13 @@ public class LoginPage extends javax.swing.JPanel {
 
         jButton4.setText("비밀번호찾기");
 
+        btnBack.setText("뒤로가기");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,6 +74,7 @@ public class LoginPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -101,7 +110,9 @@ public class LoginPage extends javax.swing.JPanel {
                     .addComponent(jButton3)
                     .addComponent(jButton4)
                     .addComponent(jButton2))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnBack)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -113,7 +124,7 @@ public class LoginPage extends javax.swing.JPanel {
         try {
             DBManager dbManager = DBManager.getInstance();
             String query = "SELECT * FROM users WHERE id = '" + id + "' AND password = '" + password + "'";
-            dbManager.dbOpen("");
+            dbManager.dbOpen();
             dbManager.DB_rs = dbManager.DB_stmt.executeQuery(query);
             
             // 정보가 있으면, layoutmanager에 있는 user정보 세팅해주고, bankmainpage로 화면전환
@@ -124,7 +135,7 @@ public class LoginPage extends javax.swing.JPanel {
                 String userMoney = dbManager.DB_rs.getString("money");
                 
                 LayoutManager.getInstance().setUser(new User(userID, userPW, userBankAccount, userMoney));
-                LayoutManager.getInstance().previousLayout(); // 이전 화면(메인화면)으로 이동
+                LayoutManager.getInstance().setLayout("bankMainPage"); // 이전 화면(메인화면)으로 이동
             } else {
                 System.out.println("사용자 정보를 찾을 수 없습니다.");
             }
@@ -135,8 +146,13 @@ public class LoginPage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        LayoutManager.getInstance().setLayout("bankMainPage");
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

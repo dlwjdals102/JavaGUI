@@ -22,18 +22,20 @@ public class LayoutManager {
     
     private User user;
     
-    private LoginPage loginPage;
+    private LoginPage loginPage;                // 로그인 화면
+    private SignUpPage signUpPage;              // 회원가입 화면
     
-    private BankMainPage bankMainPage;          // 메인화면
-    private BankDepositPage bankDepositPage;    // 입금화면  
-    private BankWithdrawPage bankWithdrawPage;  // 출금화면
-    private BankTransferPage bankTransferPage;  // 송금화면
+    private BankMainPage bankMainPage;          // 메인 화면
+    private BankDepositPage bankDepositPage;    // 입금 화면  
+    private BankWithdrawPage bankWithdrawPage;  // 출금 화면
+    private BankTransferPage bankTransferPage;  // 송금 화면
     
     public LayoutManager(){
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         
         loginPage = new LoginPage();
+        signUpPage = new SignUpPage();
         
         bankMainPage = new BankMainPage();
         bankDepositPage = new BankDepositPage();
@@ -81,6 +83,8 @@ public class LayoutManager {
         
         // Add pages to the cardPanel
         cardPanel.add(loginPage, "loginPage");
+        cardPanel.add(signUpPage, "signUpPage");
+        
         cardPanel.add(bankMainPage, "bankMainPage");
         cardPanel.add(bankDepositPage, "bankDepositPage");
         cardPanel.add(bankWithdrawPage, "bankWithdrawPage");
@@ -93,10 +97,6 @@ public class LayoutManager {
     
     public void setLayout(String panel){
         cardLayout.show(cardPanel, panel);
-    }
-    
-    public void previousLayout(){
-        cardLayout.previous(cardPanel);
     }
     
 }

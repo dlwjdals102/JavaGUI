@@ -17,10 +17,10 @@ import java.sql.Statement;
 public class DBManager {
     private static DBManager instance;
     
-    String strDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    String strURL = "jdbc:sqlserver://localhost:1433;DatabaseName=";
-    String strUser = "sa";
-    String strPWD = "inha1958";
+    String strDriver = "com.mysql.cj.jdbc.Driver";
+    String strURL = "jdbc:mysql://10.200.72.191:3306/bank?characterEncoding-UTF-8&serverTimezone=UTC";
+    String strUser = "root";
+    String strPWD = "rootpw";
     
     Connection DB_con;
     Statement DB_stmt;
@@ -33,11 +33,9 @@ public class DBManager {
         return instance;
     }
     
-    public void dbOpen(String dbName) throws IOException {
+    public void dbOpen() throws IOException {
         try {
             Class.forName(strDriver);
-            strURL += dbName+";";
-            strURL += "encrypt=true;trustServerCertificate=true;";
             DB_con = DriverManager.getConnection(strURL, strUser, strPWD);
             DB_stmt = DB_con.createStatement();
         } catch (Exception e) {
