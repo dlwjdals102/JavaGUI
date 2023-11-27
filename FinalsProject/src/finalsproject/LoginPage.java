@@ -128,7 +128,7 @@ public class LoginPage extends javax.swing.JPanel {
         
         try {
             DBManager dbManager = DBManager.getInstance();
-            String query = "SELECT * FROM users WHERE id = '" + id + "' AND password = '" + password + "'";
+            String query = "SELECT * FROM user WHERE id = '" + id + "' AND password = '" + password + "'";
             dbManager.dbOpen();
             dbManager.DB_rs = dbManager.DB_stmt.executeQuery(query);
             
@@ -136,7 +136,7 @@ public class LoginPage extends javax.swing.JPanel {
             if (dbManager.DB_rs.next()) {
                 String userID = dbManager.DB_rs.getString("id");
                 String userPW = dbManager.DB_rs.getString("password");
-                String userBankAccount = dbManager.DB_rs.getString("bankaccount");
+                String userBankAccount = dbManager.DB_rs.getString("account");
                 String userMoney = dbManager.DB_rs.getString("money");
                 
                 LayoutManager.getInstance().setUser(new User(userID, userPW, userBankAccount, userMoney));

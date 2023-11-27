@@ -12,7 +12,7 @@ public class User {
     private String id;
     private String password;
     private String accountNumber;
-    private String money;
+    private String accountMoney;
     
     private int haveMoney;
     
@@ -20,7 +20,7 @@ public class User {
         this.id = id;
         this.password = password;
         this.accountNumber = accountNumber;
-        this.money = money;
+        this.accountMoney = money;
         
         haveMoney = 100000;
     }
@@ -38,7 +38,7 @@ public class User {
     }
 
     public String getMoney() {
-        return money;
+        return accountMoney;
     }
     
     public int getHaveMoney() {
@@ -58,7 +58,7 @@ public class User {
     }
 
     public void setMoney(String money) {
-        this.money = money;
+        this.accountMoney = money;
     }
     public void setHaveMoney(int haveMoney) {
         this.haveMoney = haveMoney;
