@@ -38,7 +38,7 @@ public class LoginPage extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSignUp = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -54,7 +54,12 @@ public class LoginPage extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("회원가입");
+        btnSignUp.setText("회원가입");
+        btnSignUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignUpActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("아이디찾기");
 
@@ -80,7 +85,7 @@ public class LoginPage extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -109,7 +114,7 @@ public class LoginPage extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton2))
+                    .addComponent(btnSignUp))
                 .addGap(18, 18, 18)
                 .addComponent(btnBack)
                 .addContainerGap(58, Short.MAX_VALUE))
@@ -150,11 +155,15 @@ public class LoginPage extends javax.swing.JPanel {
         LayoutManager.getInstance().setLayout("bankMainPage");
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
+        LayoutManager.getInstance().setLayout("signUpPage");
+    }//GEN-LAST:event_btnSignUpActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSignUp;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

@@ -20,7 +20,7 @@ public class LayoutManager {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     
-    private User user;
+    private User user;                          // 사용자 정보
     
     private LoginPage loginPage;                // 로그인 화면
     private SignUpPage signUpPage;              // 회원가입 화면
@@ -29,6 +29,7 @@ public class LayoutManager {
     private BankDepositPage bankDepositPage;    // 입금 화면  
     private BankWithdrawPage bankWithdrawPage;  // 출금 화면
     private BankTransferPage bankTransferPage;  // 송금 화면
+    private BankTransactionHistoryPage bankTransactionHistoryPage;  // 거래내역 화면    
     
     public LayoutManager(){
         cardLayout = new CardLayout();
@@ -41,6 +42,7 @@ public class LayoutManager {
         bankDepositPage = new BankDepositPage();
         bankWithdrawPage = new BankWithdrawPage();
         bankTransferPage = new BankTransferPage();
+        bankTransactionHistoryPage = new BankTransactionHistoryPage();
     }
     
     public static LayoutManager getInstance() {
@@ -89,6 +91,7 @@ public class LayoutManager {
         cardPanel.add(bankDepositPage, "bankDepositPage");
         cardPanel.add(bankWithdrawPage, "bankWithdrawPage");
         cardPanel.add(bankTransferPage, "bankTransferPage");
+        cardPanel.add(bankTransactionHistoryPage, "bankTransactionHistoryPage");
         
         // Show the initial page
         cardLayout.show(cardPanel, "bankMainPage");

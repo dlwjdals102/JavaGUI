@@ -14,11 +14,15 @@ public class User {
     private String accountNumber;
     private String money;
     
+    private int haveMoney;
+    
     public User(String id, String password, String accountNumber, String money){
         this.id = id;
         this.password = password;
         this.accountNumber = accountNumber;
         this.money = money;
+        
+        haveMoney = 100000;
     }
 
     public String getId() {
@@ -36,6 +40,10 @@ public class User {
     public String getMoney() {
         return money;
     }
+    
+    public int getHaveMoney() {
+        return haveMoney;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -49,7 +57,10 @@ public class User {
         this.accountNumber = accountNumber;
     }
 
-    public void setMoney(String currMoney) {
-        this.money = currMoney;
+    public void setMoney(String money) {
+        this.money = money;
+    }
+    public void setHaveMoney(int haveMoney) {
+        this.haveMoney = haveMoney;
     }
 }
