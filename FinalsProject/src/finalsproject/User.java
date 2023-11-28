@@ -11,16 +11,18 @@ package finalsproject;
 public class User {
     private String id;
     private String password;
+    private String name;
     private String accountNumber;
-    private String accountMoney;
+    private int accountMoney;
     
     private int haveMoney;
     
-    public User(String id, String password, String accountNumber, String money){
+    public User(String id, String password, String name, String accountNumber, int accountMoney){
         this.id = id;
         this.password = password;
+        this.name = name;
         this.accountNumber = accountNumber;
-        this.accountMoney = money;
+        this.accountMoney = accountMoney;
         
         haveMoney = 100000;
     }
@@ -37,14 +39,22 @@ public class User {
         return accountNumber;
     }
 
-    public String getMoney() {
+    public int getMoney() {
         return accountMoney;
     }
     
     public int getHaveMoney() {
         return haveMoney;
     }
+    
+    public String getName() {
+        return name;
+    }
 
+    
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setId(String id) {
         this.id = id;
     }
@@ -57,8 +67,8 @@ public class User {
         this.accountNumber = accountNumber;
     }
 
-    public void setMoney(String money) {
-        this.accountMoney = money;
+    public void setMoney(int accountMoney) {
+        this.accountMoney = accountMoney;
     }
     public void setHaveMoney(int haveMoney) {
         this.haveMoney = haveMoney;

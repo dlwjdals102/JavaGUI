@@ -36,12 +36,12 @@ public class LoginPage extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         btnSignUp = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        txtPassword = new javax.swing.JPasswordField();
 
         jLabel1.setText("아이디 :");
 
@@ -136,10 +136,11 @@ public class LoginPage extends javax.swing.JPanel {
             if (dbManager.DB_rs.next()) {
                 String userID = dbManager.DB_rs.getString("id");
                 String userPW = dbManager.DB_rs.getString("password");
+                String userName = dbManager.DB_rs.getString("name");
                 String userBankAccount = dbManager.DB_rs.getString("account");
-                String userMoney = dbManager.DB_rs.getString("money");
+                int userMoney = dbManager.DB_rs.getInt("money");
                 
-                LayoutManager.getInstance().setUser(new User(userID, userPW, userBankAccount, userMoney));
+                LayoutManager.getInstance().setUser(new User(userID, userPW, userName, userBankAccount, userMoney));
                 LayoutManager.getInstance().setLayout("bankMainPage"); // 이전 화면(메인화면)으로 이동
             } else {
                 System.out.println("사용자 정보를 찾을 수 없습니다.");
@@ -169,6 +170,6 @@ public class LoginPage extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtPassword;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

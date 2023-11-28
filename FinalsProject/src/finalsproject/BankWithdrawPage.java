@@ -82,19 +82,39 @@ public class BankWithdrawPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnWithdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWithdrawActionPerformed
+        User user = LayoutManager.getInstance().getCurrentUser();
         
-        int withdrawMoney = Integer.parseInt(txtWithdrawMoney.getText());           // 출금 하려는 금액
-        int currMoney = LayoutManager.getInstance().getCurrentUser().getHaveMoney();  // 현재 가지고 있는 금액
+        int withdrawMoney = Integer.parseInt(txtWithdrawMoney.getText());     // 출금 하려는 금액
+        int accountMoney = user.getMoney();                                     // 계좌에 있는 금액
+        int haveMoney = user.getHaveMoney();                                    // 현재 가지고 있는 금액
         
-        if (withdrawMoney > currMoney) {
-            JOptionPane.showMessageDialog(this, "출금 하려는 금액이 가지고 있는 금액보다 더 많습니다.", 
+        if (withdrawMoney > accountMoney) {
+            JOptionPane.showMessageDialog(this, "출금 하려는 금액이 계좌에 있는 금액보다 더 많습니다.", 
                                 "Over Money", JOptionPane.WARNING_MESSAGE);
             return;
         }
         
-        currMoney = currMoney - withdrawMoney;
+        accountMoney = accountMoney - withdrawMoney;
+        haveMoney = haveMoney + withdrawMoney;
         
-        LayoutManager.getInstance().getCurrentUser().setMoney(String.valueOf(currMoney));
+        try {
+            DBManager dbManager = DBManager.getInstance();
+            dbManager.dbOpen();
+            String query = "update user set money="+accountMoney+" where id='" + user.getId() + "'";
+            dbManager.DB_stmt.executeUpdate(query);
+            
+            dbManager.dbClose();
+        } catch (IOException | SQLException ex) {
+            Logger.getLogger(BankWithdrawPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        user.setMoney(accountMoney);
+        user.setHaveMoney(haveMoney);
+        
+        // 출금내역 db에 저장
+        
+        
+        
     }//GEN-LAST:event_btnWithdrawActionPerformed
 
 

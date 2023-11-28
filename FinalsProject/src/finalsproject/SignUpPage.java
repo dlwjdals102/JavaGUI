@@ -6,6 +6,7 @@ package finalsproject;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -196,7 +197,11 @@ public class SignUpPage extends javax.swing.JPanel {
             boolean isUnique = false;
             while (!isUnique) {
                 // 계좌 번호 생성
-                accountNumber = UUID.randomUUID().toString();
+                Random random = new Random();
+                int min = 10000000; // Minimum 8-digit number
+                int max = 99999999; // Maximum 8-digit number
+                
+                accountNumber = String.valueOf(random.nextInt(max - min + 1) + min);
                 // DB에서 고유성 확인
                 if (checkUniquenessInDB(accountNumber)) {
                     isUnique = true;
@@ -207,7 +212,8 @@ public class SignUpPage extends javax.swing.JPanel {
             query += "'" + id + "', ";
             query += "'" + pw + "', ";
             query += "'" + name + "', ";
-            query += "'" + accountNumber + "')";
+            query += "'" + accountNumber + "', ";
+            query += 0 + ")";
             
             dbManager.DB_stmt.executeUpdate(query);
             JOptionPane.showMessageDialog(this, "회원가입이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);

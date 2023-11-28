@@ -9,7 +9,7 @@ package finalsproject;
  * @author LeeJeongMin
  */
 public class BankDepositPage extends javax.swing.JPanel {
-    DBManager DBM = new DBManager();
+    
     /**
      * Creates new form BankDepositPage
      */
@@ -32,7 +32,7 @@ public class BankDepositPage extends javax.swing.JPanel {
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         txtAccount = new javax.swing.JTextField();
-        txtInputMoney = new javax.swing.JTextField();
+        txtMoney = new javax.swing.JTextField();
 
         btnDeposit.setText("입금");
         btnDeposit.addActionListener(new java.awt.event.ActionListener() {
@@ -61,7 +61,7 @@ public class BankDepositPage extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnDeposit)
                     .addComponent(txtAccount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                    .addComponent(txtInputMoney, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMoney, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -79,7 +79,7 @@ public class BankDepositPage extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInputMoney)
-                    .addComponent(txtInputMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addComponent(btnDeposit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -87,18 +87,20 @@ public class BankDepositPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
-        String strSQL = "Update user Set money ";
-        int current_money = Integer.parseInt(LayoutManager.getInstance().getCurrentUser().getMoney());
-        strSQL += "where id = '" + LayoutManager.getInstance().getCurrentUser().getId() + "'";
         try{
-            DBM.dbOpen();
-            DBM.DB_stmt.executeUpdate(strSQL);
-            DBM.dbClose();
+            User user = LayoutManager.getInstance().getCurrentUser();
+            DBManager dbManager = DBManager.getInstance();
+            int money = Integer.parseInt(txtMoney.getText());
+            
         }catch(Exception e){
             System.out.println("SQLException : " + e.getMessage());
         }
     }//GEN-LAST:event_btnDepositActionPerformed
 
+    public void initInfo(String name, String account){
+        txtName.setText(name);
+        txtAccount.setText(account);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeposit;
@@ -106,7 +108,7 @@ public class BankDepositPage extends javax.swing.JPanel {
     private javax.swing.JLabel lblInputMoney;
     private javax.swing.JLabel lblName;
     private javax.swing.JTextField txtAccount;
-    private javax.swing.JTextField txtInputMoney;
+    private javax.swing.JTextField txtMoney;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

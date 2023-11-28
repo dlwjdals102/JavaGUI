@@ -4,6 +4,12 @@
  */
 package finalsproject;
 
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  * 송금
  * @author LeeJeongMin
@@ -26,19 +32,110 @@ public class BankTransferPage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnTransfer = new javax.swing.JButton();
+        txtAccountNumber = new javax.swing.JTextField();
+        txtMoney = new javax.swing.JTextField();
+
+        jLabel1.setText("계좌번호");
+
+        jLabel2.setText("금액");
+
+        btnTransfer.setText("송금");
+        btnTransfer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransferActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnTransfer)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtAccountNumber)
+                            .addComponent(txtMoney, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtAccountNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(btnTransfer)
+                .addContainerGap(144, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferActionPerformed
+        try {
+            String accountNumber = txtAccountNumber.getText();
+            int money = Integer.parseInt(txtMoney.getText());
+            
+            User user = LayoutManager.getInstance().getCurrentUser();
+            DBManager dbManager = DBManager.getInstance();
+            dbManager.dbOpen();
+            
+            String query = "select count(*) from user where account='"+accountNumber+"'";
+            // 계좌번호 확인
+            if (dbManager.DB_rs.next()) {
+                int count = dbManager.DB_rs.getInt(1);
+                
+                if (count > 0) {
+                    
+                } else { // 계좌번호가 없으면
+                    JOptionPane.showMessageDialog(this, "없는 계좌번호입니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+            }
+            
+            // 내 계좌 돈 확인
+            if (user.getMoney() < money) {
+                JOptionPane.showMessageDialog(this, "내 계좌에 돈이 없어요", "Fail", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            
+            // 송금
+            query = "update user set money=money+" + money + " where account='" + accountNumber + "'";
+            dbManager.DB_stmt.executeUpdate(query);
+            
+            user.setMoney(user.getMoney() - money);
+            
+            query = "update user set money="+ user.getMoney() + " where id='"+ user.getId() + "'";
+            dbManager.DB_stmt.executeUpdate(query);
+            
+            JOptionPane.showMessageDialog(this, "완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            dbManager.dbClose();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(BankTransferPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnTransferActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnTransfer;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField txtAccountNumber;
+    private javax.swing.JTextField txtMoney;
     // End of variables declaration//GEN-END:variables
 }
