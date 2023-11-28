@@ -37,6 +37,7 @@ public class BankTransferPage extends javax.swing.JPanel {
         btnTransfer = new javax.swing.JButton();
         txtAccountNumber = new javax.swing.JTextField();
         txtMoney = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
 
         jLabel1.setText("계좌번호");
 
@@ -49,6 +50,13 @@ public class BankTransferPage extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("뒤로가기");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,6 +64,7 @@ public class BankTransferPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack)
                     .addComponent(btnTransfer)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +89,9 @@ public class BankTransferPage extends javax.swing.JPanel {
                     .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(btnTransfer)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack)
+                .addContainerGap(109, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -94,6 +105,7 @@ public class BankTransferPage extends javax.swing.JPanel {
             dbManager.dbOpen();
             
             String query = "select count(*) from user where account='"+accountNumber+"'";
+            dbManager.DB_rs = dbManager.DB_stmt.executeQuery(query);
             // 계좌번호 확인
             if (dbManager.DB_rs.next()) {
                 int count = dbManager.DB_rs.getInt(1);
@@ -122,6 +134,7 @@ public class BankTransferPage extends javax.swing.JPanel {
             dbManager.DB_stmt.executeUpdate(query);
             
             JOptionPane.showMessageDialog(this, "완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            LayoutManager.getInstance().setLayout("bankMainPage");
             
             dbManager.dbClose();
         } catch (SQLException | IOException ex) {
@@ -130,8 +143,13 @@ public class BankTransferPage extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnTransferActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        LayoutManager.getInstance().setLayout("bankMainPage");
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnTransfer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

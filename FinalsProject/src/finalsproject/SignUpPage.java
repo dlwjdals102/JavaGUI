@@ -46,6 +46,7 @@ public class SignUpPage extends javax.swing.JPanel {
         txtPassword = new javax.swing.JTextField();
         txtPasswordCheck = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
 
         btnDuplicate.setText("중복확인");
         btnDuplicate.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +76,13 @@ public class SignUpPage extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setText("뒤로가기");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,7 +101,11 @@ public class SignUpPage extends javax.swing.JPanel {
                         .addComponent(btnDuplicate))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnSignUp)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnSignUp)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBack)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -128,7 +140,9 @@ public class SignUpPage extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnSignUp)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSignUp)
+                    .addComponent(btnBack))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -231,8 +245,13 @@ public class SignUpPage extends javax.swing.JPanel {
         duplicateCheck = 0;
     }//GEN-LAST:event_txtIDKeyPressed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        LayoutManager.getInstance().setLayout("bankMainPage");
+    }//GEN-LAST:event_btnBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDuplicate;
     private javax.swing.JButton btnSignUp;
     private javax.swing.JLabel jLabel1;

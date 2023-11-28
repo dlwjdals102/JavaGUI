@@ -18,9 +18,10 @@ public class DBManager {
     private static DBManager instance;
     
     String strDriver = "com.mysql.cj.jdbc.Driver";
-    String strURL = "jdbc:mysql://127.0.0.1:3306/bank?characterEncoding-UTF-8&serverTimezone=UTC";
+    //String strURL = "jdbc:mysql://127.0.0.1:3306/bank?characterEncoding-UTF-8&serverTimezone=UTC";
+    String strURL = "jdbc:mysql://localhost:3306/bank?characterEncoding-UTF-8&serverTimezone=UTC";
     String strUser = "root";
-    String strPWD = "rootpw";
+    String strPWD = "root";
     
     Connection DB_con;
     Statement DB_stmt;

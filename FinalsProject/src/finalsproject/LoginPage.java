@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -141,6 +142,7 @@ public class LoginPage extends javax.swing.JPanel {
                 int userMoney = dbManager.DB_rs.getInt("money");
                 
                 LayoutManager.getInstance().setUser(new User(userID, userPW, userName, userBankAccount, userMoney));
+                JOptionPane.showMessageDialog(this, "로그인이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 LayoutManager.getInstance().setLayout("bankMainPage"); // 이전 화면(메인화면)으로 이동
             } else {
                 System.out.println("사용자 정보를 찾을 수 없습니다.");

@@ -45,6 +45,11 @@ public class BankWithdrawPage extends javax.swing.JPanel {
         });
 
         btnBack.setText("뒤로가기");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("출금 금액");
 
@@ -116,6 +121,10 @@ public class BankWithdrawPage extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_btnWithdrawActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        LayoutManager.getInstance().setLayout("bankMainPage");
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
