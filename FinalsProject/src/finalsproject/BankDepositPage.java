@@ -139,6 +139,8 @@ public class BankDepositPage extends javax.swing.JPanel {
         DBManager dBManager = DBManager.getInstance();
         User user = dBManager.getCurrUser();
         
+        if (user == null) return;
+        
         lblName.setText(user.getName());
         lblAccount.setText(user.getAccountNumber());
     }

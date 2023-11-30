@@ -27,6 +27,7 @@ public class LayoutManager {
     private BankDepositPage bankDepositPage;    // 입금 화면  
     private BankWithdrawPage bankWithdrawPage;  // 출금 화면
     private BankTransferPage bankTransferPage;  // 송금 화면
+    private BankInquiry bankInquiry;
     private BankTransactionHistoryPage bankTransactionHistoryPage;  // 거래내역 화면    
     private CaptChaPage captchaPage;
     
@@ -41,6 +42,7 @@ public class LayoutManager {
         bankDepositPage = new BankDepositPage();
         bankWithdrawPage = new BankWithdrawPage();
         bankTransferPage = new BankTransferPage();
+        bankInquiry = new BankInquiry();
         bankTransactionHistoryPage = new BankTransactionHistoryPage();
         captchaPage = new CaptChaPage();
     }
@@ -84,6 +86,7 @@ public class LayoutManager {
         cardPanel.add(bankDepositPage, "bankDepositPage");
         cardPanel.add(bankWithdrawPage, "bankWithdrawPage");
         cardPanel.add(bankTransferPage, "bankTransferPage");
+        cardPanel.add(bankInquiry, "bankInquiry");
         cardPanel.add(bankTransactionHistoryPage, "bankTransactionHistoryPage");
         cardPanel.add(captchaPage, "captchaPage");
         
@@ -93,6 +96,11 @@ public class LayoutManager {
     }
     
     public void setLayout(String panel){
+        bankMainPage.setUserInfo();
+        bankDepositPage.setUserInfo();
+        bankWithdrawPage.setUserInfo();
+        bankInquiry.setUserInfo();
+        
         cardLayout.show(cardPanel, panel);
     }
     

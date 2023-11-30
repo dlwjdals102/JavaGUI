@@ -115,7 +115,6 @@ public class CaptChaPage extends javax.swing.JPanel {
         if(txtInput.getText().equals(captcha.getAnswer())){
             JOptionPane.showMessageDialog(this, "로그인이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 txtInput.setText("");
-                loManger.getBankMainPage().setUserInfo("");
                 loManger.setLayout("bankMainPage");
         }
         else{

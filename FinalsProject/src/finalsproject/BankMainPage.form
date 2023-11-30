@@ -51,10 +51,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="btnBankHistory" pref="106" max="32767" attributes="0"/>
-                                  <Component id="btnWithdraw" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="btnWithdraw" min="-2" pref="106" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Component id="btnInquiry" min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
@@ -91,10 +88,7 @@
                   <Component id="btnInquiry" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnTransfer" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBankHistory" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnTransfer" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -137,11 +131,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc870;&#xd68c;"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnBankHistory">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#xac70;&#xb798;&#xb0b4;&#xc5ed;"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInquiryActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblTitle">
       <Properties>

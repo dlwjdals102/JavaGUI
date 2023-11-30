@@ -34,7 +34,6 @@ public class BankMainPage extends javax.swing.JPanel {
         btnWithdraw = new javax.swing.JButton();
         btnTransfer = new javax.swing.JButton();
         btnInquiry = new javax.swing.JButton();
-        btnBankHistory = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -70,8 +69,11 @@ public class BankMainPage extends javax.swing.JPanel {
         });
 
         btnInquiry.setText("조회");
-
-        btnBankHistory.setText("거래내역");
+        btnInquiry.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInquiryActionPerformed(evt);
+            }
+        });
 
         lblTitle.setFont(new java.awt.Font("맑은 고딕", 1, 36)); // NOI18N
         lblTitle.setText("인하Banking");
@@ -111,9 +113,7 @@ public class BankMainPage extends javax.swing.JPanel {
                                     .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnBankHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                    .addComponent(btnWithdraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnWithdraw, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28)
                                 .addComponent(btnInquiry, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -140,20 +140,16 @@ public class BankMainPage extends javax.swing.JPanel {
                     .addComponent(btnWithdraw)
                     .addComponent(btnInquiry))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTransfer)
-                    .addComponent(btnBankHistory))
+                .addComponent(btnTransfer)
                 .addGap(45, 45, 45))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
-        LayoutManager.getInstance().getBankDepositPage().setUserInfo();
         LayoutManager.getInstance().setLayout("bankDepositPage");
     }//GEN-LAST:event_btnDepositActionPerformed
 
     private void btnWithdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWithdrawActionPerformed
-        LayoutManager.getInstance().getBankWithdrawPage().setUserInfo();
         LayoutManager.getInstance().setLayout("bankWithdrawPage");
     }//GEN-LAST:event_btnWithdrawActionPerformed
 
@@ -167,16 +163,21 @@ public class BankMainPage extends javax.swing.JPanel {
         LayoutManager.getInstance().setLayout("loginPage");
     }//GEN-LAST:event_btnLogoutActionPerformed
 
-    public void setUserInfo(String id) {
+    private void btnInquiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquiryActionPerformed
+        LayoutManager.getInstance().setLayout("bankWithdrawPage");
+    }//GEN-LAST:event_btnInquiryActionPerformed
+
+    public void setUserInfo() {
         DBManager dBManager = DBManager.getInstance();
         User user = dBManager.getCurrUser();
+        
+        if (user == null) return;
         
         lblName.setText(user.getName());
         lblRemain.setText(String.valueOf(user.getMoney()));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBankHistory;
     private javax.swing.JButton btnDeposit;
     private javax.swing.JButton btnInquiry;
     private javax.swing.JButton btnLogout;

@@ -151,6 +151,8 @@ public class BankWithdrawPage extends javax.swing.JPanel {
         DBManager dBManager = DBManager.getInstance();
         User user = dBManager.getCurrUser();
         
+        if (user == null) return;
+        
         lblAccount.setText(user.getAccountNumber());
      }
 
