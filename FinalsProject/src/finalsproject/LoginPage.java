@@ -44,6 +44,8 @@ public class LoginPage extends javax.swing.JPanel {
         txtPassword = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
 
+        setPreferredSize(new java.awt.Dimension(400, 300));
+
         jLabel1.setText("아이디 :");
 
         jLabel2.setText("비밀번호:");

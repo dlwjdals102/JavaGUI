@@ -164,7 +164,7 @@ public class BankMainPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnInquiryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInquiryActionPerformed
-        LayoutManager.getInstance().setLayout("bankWithdrawPage");
+        LayoutManager.getInstance().setLayout("bankInquiryPage");
     }//GEN-LAST:event_btnInquiryActionPerformed
 
     public void setUserInfo() {

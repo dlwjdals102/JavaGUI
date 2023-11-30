@@ -316,13 +316,28 @@ public class DBManager {
         return result;
     }
     
-    public ArrayList<History> printHistory(String id){
+    public ArrayList<History> getHistory(String id){
         ArrayList<History> historys = new ArrayList<History>();
         
-        String query = "select * from history where userID='" + id + "'";
+        String query = "select * from history where userID='" + id + "' order by date desc limit 100";
         
+        try {
+            dbOpen();
+            DB_rs = DB_stmt.executeQuery(query);
+            
+            while (DB_rs.next()) {
+                History history = new History();
+                history.setDate(DB_rs.getString("date"));
+                history.setContent(DB_rs.getString("content"));
+                historys.add(history);
+            }
+            
+            dbClose();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        return null;
+        return historys;
     }
 }
 

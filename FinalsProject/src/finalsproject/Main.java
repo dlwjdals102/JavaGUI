@@ -32,6 +32,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(600, 480));
         getContentPane().setLayout(new java.awt.CardLayout());
 
         pack();
