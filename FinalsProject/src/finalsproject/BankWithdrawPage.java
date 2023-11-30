@@ -4,10 +4,6 @@
  */
 package finalsproject;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -87,38 +83,32 @@ public class BankWithdrawPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnWithdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWithdrawActionPerformed
-        User user = LayoutManager.getInstance().getCurrentUser();
+        DBManager dBManager = DBManager.getInstance();
+        LayoutManager layoutManager = LayoutManager.getInstance();
+        
+        User user = dBManager.getCurrUser();
         
         int withdrawMoney = Integer.parseInt(txtWithdrawMoney.getText());     // 출금 하려는 금액
-        int accountMoney = user.getMoney();                                     // 계좌에 있는 금액
-        int haveMoney = user.getHaveMoney();                                    // 현재 가지고 있는 금액
         
-        if (withdrawMoney > accountMoney) {
-            JOptionPane.showMessageDialog(this, "출금 하려는 금액이 계좌에 있는 금액보다 더 많습니다.", 
-                                "Over Money", JOptionPane.WARNING_MESSAGE);
-            return;
+        int result = dBManager.withdraw(user.getId(), withdrawMoney);
+        
+        if (result == -1){
+            //실패
+            JOptionPane.showMessageDialog(this, "출금에 실패하였습니다! 계좌에 잔고가 부족합니다.", 
+                                "Fail", JOptionPane.WARNING_MESSAGE);
+        } else if (result == 0) {
+            JOptionPane.showMessageDialog(this, "출금에 실패하였습니다! DB에러!", 
+                                "Fail", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "성공!!", 
+                                "Success", JOptionPane.WARNING_MESSAGE);
         }
         
-        accountMoney = accountMoney - withdrawMoney;
-        haveMoney = haveMoney + withdrawMoney;
         
-        try {
-            DBManager dbManager = DBManager.getInstance();
-            dbManager.dbOpen();
-            String query = "update user set money="+accountMoney+" where id='" + user.getId() + "'";
-            dbManager.DB_stmt.executeUpdate(query);
-            
-            dbManager.dbClose();
-        } catch (IOException | SQLException ex) {
-            Logger.getLogger(BankWithdrawPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        user.setMoney(accountMoney);
-        user.setHaveMoney(haveMoney);
-        
+        user.setHaveMoney(user.getHaveMoney() + withdrawMoney);
         // 출금내역 db에 저장
         
-        
+        layoutManager.setLayout("bankMainPage");
         
     }//GEN-LAST:event_btnWithdrawActionPerformed
 

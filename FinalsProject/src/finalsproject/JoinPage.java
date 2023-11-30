@@ -16,12 +16,12 @@ import javax.swing.JOptionPane;
  *  회원가입
  * @author LeeJeongMin
  */
-public class SignUpPage extends javax.swing.JPanel {
+public class JoinPage extends javax.swing.JPanel {
 
     /**
      * Creates new form BankCreateAccount
      */
-    public SignUpPage() {
+    public JoinPage() {
         initComponents();
     }
     
@@ -176,7 +176,7 @@ public class SignUpPage extends javax.swing.JPanel {
             }
             dbManager.dbClose();
         } catch (SQLException | IOException ex) {
-            Logger.getLogger(SignUpPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JoinPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         JOptionPane.showMessageDialog(this, "사용가능한 아이디 입니다.", "Valid ID", JOptionPane.INFORMATION_MESSAGE);
@@ -202,42 +202,27 @@ public class SignUpPage extends javax.swing.JPanel {
             return;
         }
         
-        // db정보 입력
-        try {
-            DBManager dbManager = DBManager.getInstance();
-            dbManager.dbOpen();
-            
-            String accountNumber = "";
-            boolean isUnique = false;
-            while (!isUnique) {
-                // 계좌 번호 생성
-                Random random = new Random();
-                int min = 10000000; // Minimum 8-digit number
-                int max = 99999999; // Maximum 8-digit number
-                
-                accountNumber = String.valueOf(random.nextInt(max - min + 1) + min);
-                // DB에서 고유성 확인
-                if (checkUniquenessInDB(accountNumber)) {
-                    isUnique = true;
-                }
-            }
-            
-            String query = "Insert Into User Values(";
-            query += "'" + id + "', ";
-            query += "'" + pw + "', ";
-            query += "'" + name + "', ";
-            query += "'" + accountNumber + "', ";
-            query += 0 + ")";
-            
-            dbManager.DB_stmt.executeUpdate(query);
-            JOptionPane.showMessageDialog(this, "회원가입이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            dbManager.dbClose();
-        } catch (IOException  | SQLException ex) {
-            Logger.getLogger(SignUpPage.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        DBManager dbManager = DBManager.getInstance();
         
-        // 로그인 화면으로 이동
-        LayoutManager.getInstance().setLayout("loginPage");
+        User user = new User();
+        user.setId(id);
+        user.setPassword(pw);
+        user.setName(name);
+        user.setAccountNumber(dbManager.getAccount());
+        
+        int result = dbManager.join(user);
+        
+        if (result == 0) {
+            JOptionPane.showMessageDialog(this, "회원가입 실패!!", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "회원가입 성공!!", 
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            
+            LayoutManager.getInstance().setLayout("loginPage");
+        }
+        
         
     }//GEN-LAST:event_btnSignUpActionPerformed
 
@@ -264,29 +249,4 @@ public class SignUpPage extends javax.swing.JPanel {
     private javax.swing.JTextField txtPasswordCheck;
     // End of variables declaration//GEN-END:variables
 
-    private boolean checkUniquenessInDB(String accountNumber) {
-        try {
-            DBManager dbManager = DBManager.getInstance();
-            dbManager.dbOpen();
-            String query = "SELECT COUNT(*) FROM User WHERE account='"+accountNumber+"'";
-            
-            dbManager.DB_rs = dbManager.DB_stmt.executeQuery(query);
-            
-            if (dbManager.DB_rs.next()) {
-                int count = dbManager.DB_rs.getInt(1);
-                
-                // 이미 존재하는 아이디
-                if (count > 0) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-            dbManager.dbClose();
-        } catch (SQLException | IOException ex) {
-            Logger.getLogger(SignUpPage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return false;
-    }
 }

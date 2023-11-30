@@ -4,6 +4,8 @@
  */
 package finalsproject;
 
+import javax.swing.JOptionPane;
+
 /**
  * 입금
  * @author LeeJeongMin
@@ -104,14 +106,20 @@ public class BankDepositPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
-        try{
-            User user = LayoutManager.getInstance().getCurrentUser();
-            DBManager dbManager = DBManager.getInstance();
-            int money = Integer.parseInt(txtMoney.getText());
-            
-        }catch(Exception e){
-            System.out.println("SQLException : " + e.getMessage());
+        DBManager dBManager = DBManager.getInstance();
+        User user = dBManager.getCurrUser();
+        
+        int depositMoney = Integer.parseInt(txtMoney.getText());
+        
+        int result = dBManager.deposit(user.getId(), depositMoney);
+        
+        if (result == 0) {
+            JOptionPane.showMessageDialog(this, "입금 실패!!", "Fail", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "입금 성공!!", "Fail", JOptionPane.INFORMATION_MESSAGE);
+            LayoutManager.getInstance().setLayout("bankMainPage");
         }
+        
     }//GEN-LAST:event_btnDepositActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed

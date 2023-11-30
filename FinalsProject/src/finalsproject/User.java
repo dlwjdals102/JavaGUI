@@ -15,15 +15,9 @@ public class User {
     private String accountNumber;
     private int accountMoney;
     
-    private int haveMoney;
+    private int haveMoney;  // 입, 출금이 제대로 작동했는지 확인 할 int 변수
     
-    public User(String id, String password, String name, String accountNumber, int accountMoney){
-        this.id = id;
-        this.password = password;
-        this.name = name;
-        this.accountNumber = accountNumber;
-        this.accountMoney = accountMoney;
-        
+    public User(){
         haveMoney = 100000;
     }
 

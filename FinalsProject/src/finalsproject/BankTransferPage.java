@@ -4,10 +4,6 @@
  */
 package finalsproject;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -96,49 +92,21 @@ public class BankTransferPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferActionPerformed
-        try {
-            String accountNumber = txtAccountNumber.getText();
-            int money = Integer.parseInt(txtMoney.getText());
-            
-            User user = LayoutManager.getInstance().getCurrentUser();
-            DBManager dbManager = DBManager.getInstance();
-            dbManager.dbOpen();
-            
-            String query = "select count(*) from user where account='"+accountNumber+"'";
-            dbManager.DB_rs = dbManager.DB_stmt.executeQuery(query);
-            // 계좌번호 확인
-            if (dbManager.DB_rs.next()) {
-                int count = dbManager.DB_rs.getInt(1);
-                
-                if (count > 0) {
-                    
-                } else { // 계좌번호가 없으면
-                    JOptionPane.showMessageDialog(this, "없는 계좌번호입니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
-                    return;
-                }
-            }
-            
-            // 내 계좌 돈 확인
-            if (user.getMoney() < money) {
-                JOptionPane.showMessageDialog(this, "내 계좌에 돈이 없어요", "Fail", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-            
-            // 송금
-            query = "update user set money=money+" + money + " where account='" + accountNumber + "'";
-            dbManager.DB_stmt.executeUpdate(query);
-            
-            user.setMoney(user.getMoney() - money);
-            
-            query = "update user set money="+ user.getMoney() + " where id='"+ user.getId() + "'";
-            dbManager.DB_stmt.executeUpdate(query);
-            
+        DBManager dBManager = DBManager.getInstance();
+        User user = dBManager.getCurrUser();
+        
+        String accountNumber = txtAccountNumber.getText();
+        int sendMoney = Integer.parseInt(txtMoney.getText());
+        
+        int result = dBManager.transfer(user.getId(), accountNumber, sendMoney);
+        
+        if (result == -1) {
+            JOptionPane.showMessageDialog(this, "존재하지 않는 계좌번호입니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
+        } else if (result == -2) {
+            JOptionPane.showMessageDialog(this, "돈이 부족합니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
+        } else {
             JOptionPane.showMessageDialog(this, "완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
             LayoutManager.getInstance().setLayout("bankMainPage");
-            
-            dbManager.dbClose();
-        } catch (SQLException | IOException ex) {
-            Logger.getLogger(BankTransferPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnTransferActionPerformed
