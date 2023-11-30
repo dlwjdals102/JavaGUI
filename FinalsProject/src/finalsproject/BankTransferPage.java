@@ -105,7 +105,7 @@ public class BankTransferPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferActionPerformed
-        DBManager dBManager = DBManager.getInstance();
+         DBManager dBManager = DBManager.getInstance();
         User user = dBManager.getCurrUser();
         
         String accountNumber = txtAccountNumber.getText();
@@ -114,11 +114,14 @@ public class BankTransferPage extends javax.swing.JPanel {
         int result = dBManager.transfer(user.getId(), accountNumber, sendMoney);
         
         if (result == -1) {
-            JOptionPane.showMessageDialog(this, "존재하지 않는 계좌번호입니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "존재하지 않는 계좌번호입니다.", "Fail", JOptionPane.WARNING_MESSAGE);
         } else if (result == -2) {
-            JOptionPane.showMessageDialog(this, "돈이 부족합니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "돈이 부족합니다.", "Fail", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            String content = accountNumber + " 계좌번호로 " + sendMoney +"원 송금완료";
+            dBManager.scanHistory(user.getId(), content);
+            clear();
             LayoutManager.getInstance().setLayout("bankMainPage");
         }
         
@@ -128,6 +131,10 @@ public class BankTransferPage extends javax.swing.JPanel {
         LayoutManager.getInstance().setLayout("bankMainPage");
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void clear(){
+        txtAccountNumber.setText("");
+        txtMoney.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -109,6 +110,11 @@ public class DBManager {
         } 
         
         return -1;  // db오류
+    }
+    
+    public int logout(){
+        currID = "";
+        return 1;
     }
     
     public int join(User user){
@@ -251,6 +257,71 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result;
+    }
+    
+    public int scanHistory(String id, String content){
+        
+        String query = "insert into history values(" + getNext() + ", '" 
+                + id + "', '" 
+                + getDate() + "', '"
+                + content + "')";
+        
+        int result = 0;
+        try {
+            dbOpen();
+            result = DB_stmt.executeUpdate(query);
+            dbClose();
+        } catch (SQLException | IOException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+        return result;
+        
+    }
+    
+    public int getNext() {
+        String query = "select id from history order by id desc";
+        int result = 1;
+        try {
+            dbOpen();
+            DB_rs = DB_stmt.executeQuery(query);
+            
+            if (DB_rs.next()) {
+                result =  DB_rs.getInt(1) + 1;
+            }
+            dbClose();
+        } catch (IOException  | SQLException ex) {
+            result = -1;
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    public String getDate(){
+        String query = "select now()";
+        String result = "";
+        try {
+            dbOpen();
+            DB_rs = DB_stmt.executeQuery(query);
+            
+            if (DB_rs.next()) {
+                result = DB_rs.getString(1);
+            }
+            dbClose();
+        } catch (IOException  | SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return result;
+    }
+    
+    public ArrayList<History> printHistory(String id){
+        ArrayList<History> historys = new ArrayList<History>();
+        
+        String query = "select * from history where userID='" + id + "'";
+        
+        
+        return null;
     }
 }
 

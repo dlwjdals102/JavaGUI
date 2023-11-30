@@ -136,6 +136,8 @@ public class LoginPage extends javax.swing.JPanel {
         switch (result) {
             case 1: // 로그인 성공
                 JOptionPane.showMessageDialog(this, "로그인이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                clear();
+                loManger.getBankMainPage().setUserInfo(id);
                 loManger.setLayout("bankMainPage"); // 이전 화면(메인화면)으로 이동
                 break;
             case 0:
@@ -149,9 +151,14 @@ public class LoginPage extends javax.swing.JPanel {
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignUpActionPerformed
+        clear();
         LayoutManager.getInstance().setLayout("joinPage");
     }//GEN-LAST:event_btnSignUpActionPerformed
 
+     private void clear() {
+        txtID.setText("");
+        txtPassword.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

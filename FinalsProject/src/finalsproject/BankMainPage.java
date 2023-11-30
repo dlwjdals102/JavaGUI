@@ -4,6 +4,8 @@
  */
 package finalsproject;
 
+import javax.swing.JOptionPane;
+
 /**
  *  메인화면
  * @author LeeJeongMin
@@ -27,7 +29,7 @@ public class BankMainPage extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnLogin = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         btnDeposit = new javax.swing.JButton();
         btnWithdraw = new javax.swing.JButton();
         btnTransfer = new javax.swing.JButton();
@@ -39,7 +41,12 @@ public class BankMainPage extends javax.swing.JPanel {
         lblName = new javax.swing.JLabel();
         lblRemain = new javax.swing.JLabel();
 
-        btnLogin.setText("로그아웃");
+        btnLogout.setText("로그아웃");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         btnDeposit.setText("입금");
         btnDeposit.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +90,7 @@ public class BankMainPage extends javax.swing.JPanel {
                         .addGap(103, 103, 103)
                         .addComponent(lblTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(btnLogin))
+                        .addComponent(btnLogout))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -117,7 +124,7 @@ public class BankMainPage extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnLogin)
+                    .addComponent(btnLogout)
                     .addComponent(lblTitle))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -141,10 +148,12 @@ public class BankMainPage extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDepositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepositActionPerformed
+        LayoutManager.getInstance().getBankDepositPage().setUserInfo();
         LayoutManager.getInstance().setLayout("bankDepositPage");
     }//GEN-LAST:event_btnDepositActionPerformed
 
     private void btnWithdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWithdrawActionPerformed
+        LayoutManager.getInstance().getBankWithdrawPage().setUserInfo();
         LayoutManager.getInstance().setLayout("bankWithdrawPage");
     }//GEN-LAST:event_btnWithdrawActionPerformed
 
@@ -152,12 +161,25 @@ public class BankMainPage extends javax.swing.JPanel {
         LayoutManager.getInstance().setLayout("bankTransferPage");
     }//GEN-LAST:event_btnTransferActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        DBManager.getInstance().logout();
+        JOptionPane.showMessageDialog(this, "로그아웃 되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        LayoutManager.getInstance().setLayout("loginPage");
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    public void setUserInfo(String id) {
+        DBManager dBManager = DBManager.getInstance();
+        User user = dBManager.getCurrUser();
+        
+        lblName.setText(user.getName());
+        lblRemain.setText(String.valueOf(user.getMoney()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBankHistory;
     private javax.swing.JButton btnDeposit;
     private javax.swing.JButton btnInquiry;
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnTransfer;
     private javax.swing.JButton btnWithdraw;
     private javax.swing.JLabel jLabel2;

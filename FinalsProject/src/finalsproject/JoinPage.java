@@ -218,8 +218,8 @@ public class JoinPage extends javax.swing.JPanel {
             return;
         } else {
             JOptionPane.showMessageDialog(this, "회원가입 성공!!", 
-                    "Error", JOptionPane.ERROR_MESSAGE);
-            
+                    "Success", JOptionPane.INFORMATION_MESSAGE);
+            clear();
             LayoutManager.getInstance().setLayout("loginPage");
         }
         
@@ -231,9 +231,16 @@ public class JoinPage extends javax.swing.JPanel {
     }//GEN-LAST:event_txtIDKeyPressed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        clear();
         LayoutManager.getInstance().setLayout("bankMainPage");
     }//GEN-LAST:event_btnBackActionPerformed
 
+    private void clear() {
+        txtID.setText("");
+        txtName.setText("");
+        txtPassword.setText("");
+        txtPasswordCheck.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

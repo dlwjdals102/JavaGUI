@@ -30,13 +30,13 @@ public class BankDepositPage extends javax.swing.JPanel {
 
         btnDeposit = new javax.swing.JButton();
         lblInputMoney = new javax.swing.JLabel();
-        lblAccount = new javax.swing.JLabel();
-        lblName = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
-        txtAccount = new javax.swing.JTextField();
+        lbl2 = new javax.swing.JLabel();
+        lbl1 = new javax.swing.JLabel();
         txtMoney = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblAccount = new javax.swing.JLabel();
 
         btnDeposit.setText("입금");
         btnDeposit.addActionListener(new java.awt.event.ActionListener() {
@@ -47,9 +47,9 @@ public class BankDepositPage extends javax.swing.JPanel {
 
         lblInputMoney.setText("입금할 금액 : ");
 
-        lblAccount.setText("계좌번호 : ");
+        lbl2.setText("계좌번호 : ");
 
-        lblName.setText("이 름 : ");
+        lbl1.setText("이 름 : ");
 
         btnBack.setText("뒤로가기");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -68,18 +68,18 @@ public class BankDepositPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblName)
-                    .addComponent(lblAccount)
+                    .addComponent(lbl1)
+                    .addComponent(lbl2)
                     .addComponent(lblInputMoney))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                     .addComponent(txtMoney)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDeposit, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE))
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(41, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -91,19 +91,19 @@ public class BankDepositPage extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle)
-                .addGap(33, 33, 33)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl1)
+                    .addComponent(lblName))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAccount)
-                    .addComponent(txtAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl2)
+                    .addComponent(lblAccount))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInputMoney)
                     .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDeposit)
                     .addComponent(btnBack))
@@ -120,9 +120,12 @@ public class BankDepositPage extends javax.swing.JPanel {
         int result = dBManager.deposit(user.getId(), depositMoney);
         
         if (result == 0) {
-            JOptionPane.showMessageDialog(this, "입금 실패!!", "Fail", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "입금 실패!!", "Fail", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "입금 성공!!", "Fail", JOptionPane.INFORMATION_MESSAGE);
+            String content = depositMoney +"원 입금완료";
+            dBManager.scanHistory(user.getId(), content);
+            clear();
             LayoutManager.getInstance().setLayout("bankMainPage");
         }
         
@@ -132,20 +135,28 @@ public class BankDepositPage extends javax.swing.JPanel {
         LayoutManager.getInstance().setLayout("bankMainPage");
     }//GEN-LAST:event_btnBackActionPerformed
 
-    public void initInfo(String name, String account){
-        txtName.setText(name);
-        txtAccount.setText(account);
+    public void setUserInfo(){
+        DBManager dBManager = DBManager.getInstance();
+        User user = dBManager.getCurrUser();
+        
+        lblName.setText(user.getName());
+        lblAccount.setText(user.getAccountNumber());
+    }
+    
+    public void clear() {
+        lblName.setText("");
+        lblAccount.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeposit;
+    private javax.swing.JLabel lbl1;
+    private javax.swing.JLabel lbl2;
     private javax.swing.JLabel lblAccount;
     private javax.swing.JLabel lblInputMoney;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JTextField txtAccount;
     private javax.swing.JTextField txtMoney;
-    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

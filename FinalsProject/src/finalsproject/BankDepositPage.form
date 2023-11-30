@@ -19,20 +19,20 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="lblName" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblAccount" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl1" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl2" min="-2" max="-2" attributes="0"/>
                   <Component id="lblInputMoney" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtAccount" alignment="0" pref="244" max="32767" attributes="0"/>
                   <Component id="txtMoney" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnDeposit" min="-2" pref="113" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnBack" max="32767" attributes="0"/>
+                      <Component id="btnBack" pref="125" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="txtName" alignment="0" min="-2" pref="141" max="-2" attributes="0"/>
+                  <Component id="lblName" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lblAccount" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="41" max="32767" attributes="0"/>
           </Group>
@@ -48,22 +48,22 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblAccount" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAccount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblInputMoney" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtMoney" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnDeposit" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -87,19 +87,15 @@
         <Property name="text" type="java.lang.String" value="&#xc785;&#xae08;&#xd560; &#xae08;&#xc561; : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblAccount">
+    <Component class="javax.swing.JLabel" name="lbl2">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xacc4;&#xc88c;&#xbc88;&#xd638; : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblName">
+    <Component class="javax.swing.JLabel" name="lbl1">
       <Properties>
         <Property name="text" type="java.lang.String" value="&#xc774; &#xb984; : "/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtName">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtAccount">
     </Component>
     <Component class="javax.swing.JTextField" name="txtMoney">
     </Component>
@@ -118,6 +114,10 @@
         </Property>
         <Property name="text" type="java.lang.String" value="&#xc785;&#xae08;"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblName">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAccount">
     </Component>
   </SubComponents>
 </Form>
