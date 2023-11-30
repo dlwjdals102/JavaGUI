@@ -76,7 +76,7 @@ public class DBManager {
                 user.setPassword(DB_rs.getString("password"));
                 user.setName(DB_rs.getString("name"));
                 user.setAccountNumber(DB_rs.getString("account"));
-                user.setHaveMoney(DB_rs.getInt("money"));
+                user.setMoney(DB_rs.getInt("money"));
                 dbClose();
                 
                 return user;
@@ -114,6 +114,7 @@ public class DBManager {
     
     public int logout(){
         currID = "";
+        LayoutManager.getInstance().getCaptchaPage().refresh();
         return 1;
     }
     

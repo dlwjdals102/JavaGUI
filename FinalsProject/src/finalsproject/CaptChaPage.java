@@ -5,17 +5,31 @@
 package finalsproject;
 
 import nl.captcha.Captcha;
+import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class CaptChaPage extends javax.swing.JPanel {
 
+    private Captcha captcha;
     /**
      * Creates new form CaptChaPage
      */
     public CaptChaPage() {
         initComponents();
+        generationCaptcha();
+    }
+    private void generationCaptcha(){
+        //캡챠 틀 생성
+        captcha = new Captcha.Builder(200, 50).addText().addBackground().build();
+        //캡챠 이미지 생성
+        BufferedImage captchaImage = captcha.getImage();
+        //라벨 아이콘 속성에 캡챠 삽입
+        lblCaptCha.setIcon(new ImageIcon(captchaImage));
     }
 
     /**
@@ -37,10 +51,18 @@ public class CaptChaPage extends javax.swing.JPanel {
         lblTitle.setText("자동 로그인 방지");
 
         btnRefresh.setText("새로고침");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         btnConfirm.setText("확인");
-
-        lblCaptCha.setText("jLabel1");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,7 +92,7 @@ public class CaptChaPage extends javax.swing.JPanel {
                 .addComponent(lblTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCaptCha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -79,6 +101,28 @@ public class CaptChaPage extends javax.swing.JPanel {
                 .addGap(87, 87, 87))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        generationCaptcha();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    public void refresh(){
+        generationCaptcha();
+    }
+    
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        LayoutManager loManger = LayoutManager.getInstance();
+        if(txtInput.getText().equals(captcha.getAnswer())){
+            JOptionPane.showMessageDialog(this, "로그인이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                txtInput.setText("");
+                loManger.getBankMainPage().setUserInfo("");
+                loManger.setLayout("bankMainPage");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "다시 입력해주세요.", "Fail", JOptionPane.WARNING_MESSAGE);
+                txtInput.setText("");
+        }
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

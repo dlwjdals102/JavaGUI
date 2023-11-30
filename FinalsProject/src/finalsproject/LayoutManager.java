@@ -28,6 +28,7 @@ public class LayoutManager {
     private BankWithdrawPage bankWithdrawPage;  // 출금 화면
     private BankTransferPage bankTransferPage;  // 송금 화면
     private BankTransactionHistoryPage bankTransactionHistoryPage;  // 거래내역 화면    
+    private CaptChaPage captchaPage;
     
     public LayoutManager(){
         cardLayout = new CardLayout();
@@ -41,6 +42,7 @@ public class LayoutManager {
         bankWithdrawPage = new BankWithdrawPage();
         bankTransferPage = new BankTransferPage();
         bankTransactionHistoryPage = new BankTransactionHistoryPage();
+        captchaPage = new CaptChaPage();
     }
     
     public static LayoutManager getInstance() {
@@ -65,6 +67,9 @@ public class LayoutManager {
     public BankTransferPage getBankTransferPage() {
         return bankTransferPage;
     }
+    public CaptChaPage getCaptchaPage(){
+        return captchaPage;
+    }
     
 
     void setupCardLayout(Container container) {
@@ -80,6 +85,7 @@ public class LayoutManager {
         cardPanel.add(bankWithdrawPage, "bankWithdrawPage");
         cardPanel.add(bankTransferPage, "bankTransferPage");
         cardPanel.add(bankTransactionHistoryPage, "bankTransactionHistoryPage");
+        cardPanel.add(captchaPage, "captchaPage");
         
         // Show the initial page
         cardLayout.show(cardPanel, "loginPage");

@@ -135,10 +135,9 @@ public class LoginPage extends javax.swing.JPanel {
         int result = dbManager.login(id, password);
         switch (result) {
             case 1: // 로그인 성공
-                JOptionPane.showMessageDialog(this, "로그인이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "로그인이 완료되었습니다.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 clear();
-                loManger.getBankMainPage().setUserInfo(id);
-                loManger.setLayout("bankMainPage"); // 이전 화면(메인화면)으로 이동
+                loManger.setLayout("captchaPage"); // 이전 화면(메인화면)으로 이동
                 break;
             case 0:
                 JOptionPane.showMessageDialog(this, "로그인에 실패하였습니다.", "Fail", JOptionPane.INFORMATION_MESSAGE);
